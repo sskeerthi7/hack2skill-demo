@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediRepo - AI Medicine Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <div class="logo">
+                <i class="fa-solid fa-pills"></i>
+                <h1>MediRepo AI</h1>
+            </div>
+            <div class="search-bar">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="check-medicine-input" placeholder="Check if you have a medicine...">
+                <button id="check-btn">Check</button>
+            </div>
+        </header>
+
+        <main>
+            <div id="expiry-notification-banner" class="hidden" style="background: var(--danger); color: white; padding: 1rem; border-radius: var(--radius); margin-bottom: 2rem; display: flex; align-items: center; justify-content: space-between; box-shadow: var(--shadow);">
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <i class="fa-solid fa-triangle-exclamation" style="font-size: 1.5rem;"></i>
+                    <div>
+                        <strong style="font-size: 1.1rem;">Action Required!</strong>
+                        <div id="expiry-notification-text">You have medicines expiring soon.</div>
+                    </div>
+                </div>
+                <button onclick="document.getElementById('expiry-notification-banner').classList.add('hidden')" style="background: rgba(255,255,255,0.2); border: none; color: white; padding: 0.5rem; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; transition: background 0.2s;">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <section class="add-medicine-section card">
+                <h2><i class="fa-solid fa-plus-circle"></i> Add Medicine Smart Entry</h2>
+                <p>Upload an invoice, photo of medicine, or simply describe what you bought.</p>
+                <div class="smart-input-container">
+                    <textarea id="smart-text-input" placeholder="E.g., 'I bought a strip of Paracetamol 500mg, expiring 12/2025'"></textarea>
+                    <div class="input-actions">
+                        <button class="icon-btn" id="voice-btn" title="Use Voice"><i class="fa-solid fa-microphone"></i></button>
+                        <label for="image-upload" class="icon-btn" title="Upload Image">
+                            <i class="fa-solid fa-camera"></i>
+                        </label>
+                        <input type="file" id="image-upload" accept="image/*" hidden>
+                        <button class="primary-btn" id="process-btn">Process via Gemini <i class="fa-solid fa-wand-magic-sparkles"></i></button>
+                    </div>
+                </div>
+                <div id="ai-processing-status" class="hidden">
+                    <div class="spinner"></div> Extracting details...
+                </div>
+            </section>
+
+            <section class="inventory-section">
+                <div class="section-header">
+                    <h2><i class="fa-solid fa-box-archive"></i> Your Inventory</h2>
+                    <div class="filters">
+                        <select id="sort-inventory">
+                            <option value="expiry">Sort by Expiry</option>
+                            <option value="name">Sort by Name</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="medicine-grid" id="medicine-grid">
+                    <!-- Populated by JS -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Application Script -->
+    <script src="app.js"></script>
+</body>
+</html>
